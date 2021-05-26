@@ -57,6 +57,7 @@ class CanvasADSR {
 	constructor(ctx, arr ) {
 				
 		this.ctx = ctx;
+		this.arr = arr;
 		
 		this.canvasHeight = arr.canvasHeight;
 		this.canvasWidth = arr.canvasWidth;
@@ -71,11 +72,6 @@ class CanvasADSR {
 		this.release = 0;
 		this.hold = 0;
 
-		if(arr.attack >= 0 && arr.attack<=127) this.attack = arr.attack;
-		if(arr.decay >= 0 && arr.decay<=127) this.decay = arr.decay;
-		if(arr.sustain >= 0 && arr.sustain<=127) this.sustain = arr.sustain;
-		if(arr.release >= 0 && arr.release<=127) this.release = arr.release;
-
 		this.ratioHeight = 0;
 		this.ratioWidth = 0;
 
@@ -85,29 +81,50 @@ class CanvasADSR {
 		this.pixRel = 0;
 		this.leftover = 0;
 
-		if(typeof arr.lineColour !== 'undefined') this.lineColour = arr.lineColour;
-		if(typeof arr.pixelWidth !== 'undefined') this.pixelWidth = arr.pixelWidth;
-		if(typeof arr.axisColour !== 'undefined') this.axisColour = arr.axisColour;
-
+		this.validateADSRValues();
+		this.setExtraOptions();
 		this.calcHold();
 		this.calcRatioHeight();
 		this.calcRatioWidth();
 		this.calcPixelVals();
+		this.processAxis();
+		this.drawEnvelopeType();
+		
+	}
 
-		if(typeof arr.includeAxis !== 'undefined'){
-			if(arr.includeAxis === true) this.drawAxis();
+	processAxis(){
+		if(typeof this.arr.includeAxis !== 'undefined'){
+			if(this.arr.includeAxis === true) this.drawAxis();
 		} else {
 			this.drawAxis();
 		}
+	}
 
-		if(arr.adsrEnvelopeType !== 'undefined'){ 
-			(arr.adsrEnvelopeType === 'Exponential')?this.drawADSREnvelopeExp():
+	drawEnvelopeType(){
+		if(this.arr.adsrEnvelopeType !== 'undefined'){ 
+			(this.arr.adsrEnvelopeType === 'Exponential')?this.drawADSREnvelopeExp():
 			this.drawADSREnvelopeLinear();
 		} else{
 			this.drawADSREnvelopeLinear();
 		}
 	}
 
+	validateADSRValues(){
+		if(this.arr.attack >= 0 && this.arr.attack<=127)
+			this.attack = this.arr.attack;
+		if(this.arr.decay >= 0 && this.arr.decay<=127) 
+			this.decay = this.arr.decay;
+		if(this.arr.sustain >= 0 && this.arr.sustain<=127)
+			this.sustain = this.arr.sustain;
+		if(this.arr.release >= 0 && this.arr.release<=127)
+			this.release = this.arr.release;
+	}
+
+	setExtraOptions(){
+		if(typeof this.arr.lineColour !== 'undefined') this.lineColour = this.arr.lineColour;
+		if(typeof this.arr.pixelWidth !== 'undefined') this.pixelWidth = this.arr.pixelWidth;
+		if(typeof this.arr.axisColour !== 'undefined') this.axisColour = this.arr.axisColour;
+	}
 
 	calcHold(){
 		let maximum = 127 * 4;
@@ -132,7 +149,6 @@ class CanvasADSR {
 	}
 
 	drawAxis(){
-
 		this.ctx.strokeStyle = this.axisColour;
 		this.ctx.lineWidth = this.pixelWidth;
 		this.ctx.beginPath();
@@ -143,11 +159,13 @@ class CanvasADSR {
 		this.ctx.stroke();
 	}
 
-	drawADSREnvelopeLinear(){
-
+	assignLineColourAndPixelWidth(){
 		this.ctx.strokeStyle = this.lineColour;
 		this.ctx.lineWidth = this.pixelWidth;
+	}
 
+	drawADSREnvelopeLinear(){
+		this.assignLineColourAndPixelWidth();
 		this.ctx.beginPath();
 		this.ctx.moveTo(0, this.canvasHeight); // start point
 		this.ctx.lineTo(this.pixAtk, 0);
@@ -162,10 +180,7 @@ class CanvasADSR {
 	}
 
 	drawADSREnvelopeExp(){
-
-		this.ctx.strokeStyle = this.lineColour;
-		this.ctx.lineWidth = this.pixelWidth;
-
+		this.assignLineColourAndPixelWidth();
 		this.ctx.beginPath();
 		this.ctx.moveTo(0, this.canvasHeight); // start point
 		this.ctx.quadraticCurveTo(this.pixAtk, this.canvasHeight, this.pixAtk, 0);
@@ -182,8 +197,8 @@ class CanvasADSR {
 			this.canvasHeight);
 		this.ctx.stroke();	
 	}
+}  // CanvasADSR class ends
 
-}
 
 
 

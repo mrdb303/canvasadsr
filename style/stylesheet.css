@@ -6,7 +6,7 @@ padding:0;
 
 html, body {
 height: 100%;
-min-width: 340px;
+min-width: 320px;
 }
 
 #wrapper {
@@ -29,12 +29,14 @@ canvas {
 background: #f8fbfb; 
 display: block;
 margin-top: 10px;
-margin-bottom: 40px;
+margin-bottom: 60px;
 }
 
 ul{
 margin-top: 20px;
-margin-bottom: 20px;
+margin-bottom: 30px;
+margin-left: 35px;
+list-style-type: circle;
 }
 
 code{
