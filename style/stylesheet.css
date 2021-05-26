@@ -1,0 +1,42 @@
+* {
+font-family: Arial, Helvetica, sans-serif;
+margin:0;
+padding:0;
+}
+
+html, body {
+height: 100%;
+min-width: 340px;
+}
+
+#wrapper {
+min-height: 100%;
+height: auto !important;
+margin:0 auto -30px;
+background-color: #f8fbfb;
+}
+
+#center {
+width: 85%;
+max-width: 1200px;
+margin:0 auto; 
+padding-top: 20px;
+padding-bottom:60px;
+height: 100%;
+}
+
+canvas {
+background: #f8fbfb; 
+display: block;
+margin-top: 10px;
+margin-bottom: 40px;
+}
+
+ul{
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+code{
+font-family: monospace, Arial, Helvetica, sans-serif;
+}

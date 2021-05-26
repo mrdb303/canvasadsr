@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ADSR Graphic Class for JavaScript</title>
+	<link href="style/stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="center">
+			<h1>ADSR Graphic Class for JavaScript</h1>
+
+			<br/><br/>
+			<p>For generating a canvas object in a web page containing 
+				a graph representing four ADSR envelope values. Each 
+				value needs to be between 0 and 127.</p><br/><br/>
+			<h3>Example 1</h3>
+			<ul>
+				<li>Attack: 80</li>
+				<li>Sustain: 100</li>
+				<li>Decay: 10</li>
+				<li>Release: 60</li>
+				<li>Canvas: 70px x 120px</li>
+				<li>Envelope Type: Linear</li>
+			</ul>
+	
+			<p>Result:</p>
+			<canvas id="canvas" height="70" width="120"></canvas>
+
+			<h3>Example 2</h3>
+			<ul>
+				<li>Attack: 60</li>
+				<li>Decay: 30</li>
+				<li>Sustain: 90</li>
+				<li>Release: 120</li>
+				<li>Canvas: 100px x 150px</li>
+				<li>Envelope Type: Exponential</li>
+			</ul>
+
+			<p>Result:</p>
+			<canvas id="canvas2" height="100" width="150"></canvas>
+
+			<h3>Example 3</h3>
+			<ul>
+				<li>Attack: 120</li>
+				<li>Decay: 10</li>
+				<li>Sustain: 100</li>
+				<li>Release: 60</li>
+				<li>Canvas: 50px x 80px</li>
+				<li>Envelope Type: Linear</li>
+				<li>Axis Colour: green</li>
+			</ul>
+	
+			<p>Result:</p>
+			<canvas id="canvas3" height="50" width="80"></canvas>
+
+			<h3>Example 4</h3>
+			<ul>
+				<li>Attack: 120</li>
+				<li>Decay: 10</li>
+				<li>Sustain: 100</li>
+				<li>Release: 60</li>
+				<li>Canvas: 50px x 80px</li>
+				<li>Envelope Type: Linear</li>
+				<li>Line Colour: orange</li>
+				<li>Pixel Width: 2</li>
+				<li>include Axis: false</li>
+			</ul>
+	
+			<p>Result:</p>
+			<canvas id="canvas4" height="50" width="80"></canvas>
+
+			<br/>
+			<h3>Example HTML Code</h3><br/>
+			
+			<code>&#60;canvas id="canvas" height="70" width="120">&#60;/canvas>
+			</code>
+			<br/><br/>
+			
+			<code>&#60;script src="js/canvasadsr.js">&#60;/script></code>
+			<br/><br/><br/>
+
+			<h3>Example JavaScript Code</h3>
+			<br/>
+
+			<code>
+				let canvas = document.querySelector('#canvas');<br/>
+				let ctx = canvas.getContext('2d');<br/>
+				<br/>
+				let outputADSR1 = new CanvasADSR(ctx,{<br/> 
+				&nbsp;&nbsp;canvasHeight: 70,<br/>
+				&nbsp;&nbsp;canvasWidth: 120,<br/>
+				&nbsp;&nbsp;attack: 80,<br/>
+				&nbsp;&nbsp;decay: 10,<br/>
+				&nbsp;&nbsp;sustain: 100,<br/> 
+				&nbsp;&nbsp;release : 60,<br/>
+				&nbsp;&nbsp;adsrEnvelopeType: 'Linear',<br/>
+				&nbsp;&nbsp;lineColour: '#000000',<br/>
+				&nbsp;&nbsp;pixelWidth: 2,<br/>
+				&nbsp;&nbsp;includeAxis: true<br/>
+				});
+			</code>
+
+		</div>
+	</div>
+	<script src="js/canvasadsr.js"></script>
+</body>
+</html>
