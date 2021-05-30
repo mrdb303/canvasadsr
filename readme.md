@@ -1,8 +1,7 @@
 ## ADSR Graphic Class for JavaScript
 
-A JavaScript class to draw an ADSR envelope in a Canvas window of supplied pixel dimensions.  
+A JavaScript class to draw a linear ADSR envelope in a Canvas window of supplied pixel dimensions.  
 The lines will scale to supplied canvas size.  
-Two styles available: Linear and Exponential.
 	
 ###Class requires:
 
@@ -16,7 +15,6 @@ release :(ADSR release value: 0 to 127)
 
 ###Optional:
 		
-adsrEnvelopeType: 'Linear' or 'Expenential'  (default: 'Linear')  
 lineColour: hex or css value (default: '#000000')  
 pixelWidth: line pixel value (default: 2)  
 includeAxis: true or false (default: true)  
@@ -37,7 +35,6 @@ let modulationADSR = new CanvasADSR(ctx,{
 	decay: 10,
 	sustain: 100, 
 	release : 60,
-	adsrEnvelopeType: 'Linear',
 	lineColour: '#000000',
 	pixelWidth: 1,
 	includeAxis: true,

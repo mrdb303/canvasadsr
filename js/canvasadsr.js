@@ -2,9 +2,8 @@
 
 class CanvasADSR {
 /*
-	A JavaScript class to draw an ADSR envelope in a Canvas window of supplied 
-	pixel dimensions. The lines will scale to supplied canvas size.
-	Two styles available: Linear and Exponential.
+	A JavaScript class to draw a linear ADSR envelope in a Canvas window of 
+	supplied pixel dimensions. The lines will scale to supplied canvas size.
 	
 	Class requires:
 		canvas object name: (canvas object)
@@ -16,7 +15,6 @@ class CanvasADSR {
 		release :(ADSR release value: 0 to 127)
 
 	Optional:
-		adsrEnvelopeType: 'Linear' or 'Expenential'  (default: 'Linear')
 		lineColour: hex or css value (default: '#000000')
 		pixelWidth: line pixel value (default: 2)
 		includeAxis: true or false (default: true)
@@ -32,7 +30,6 @@ class CanvasADSR {
 		decay: 10,
 		sustain: 100, 
 		release : 60,
-		adsrEnvelopeType: 'Linear',
 		lineColour: '#000000',
 		pixelWidth: 1,
 		includeAxis: true,
@@ -88,7 +85,7 @@ class CanvasADSR {
 		this.calcRatioWidth();
 		this.calcPixelVals();
 		this.processAxis();
-		this.drawEnvelopeType();
+		this.drawADSREnvelopeLinear()
 		
 	}
 
@@ -97,15 +94,6 @@ class CanvasADSR {
 			if(this.arr.includeAxis === true) this.drawAxis();
 		} else {
 			this.drawAxis();
-		}
-	}
-
-	drawEnvelopeType(){
-		if(this.arr.adsrEnvelopeType !== 'undefined'){ 
-			(this.arr.adsrEnvelopeType === 'Exponential')?this.drawADSREnvelopeExp():
-			this.drawADSREnvelopeLinear();
-		} else{
-			this.drawADSREnvelopeLinear();
 		}
 	}
 
@@ -179,24 +167,6 @@ class CanvasADSR {
 		this.ctx.stroke();
 	}
 
-	drawADSREnvelopeExp(){
-		this.assignLineColourAndPixelWidth();
-		this.ctx.beginPath();
-		this.ctx.moveTo(0, this.canvasHeight); // start point
-		this.ctx.quadraticCurveTo(this.pixAtk, this.canvasHeight, this.pixAtk, 0);
-		this.ctx.stroke();
-		this.ctx.quadraticCurveTo(this.pixAtk, this.pixDec, 
-			this.pixAtk + this.pixDec, (this.canvasHeight-this.pixSus));
-		this.ctx.stroke();
-		this.ctx.lineTo(this.pixAtk + this.pixDec + (this.leftover), 
-			(this.canvasHeight-this.pixSus));
-		this.ctx.stroke();
-		this.ctx.quadraticCurveTo(this.pixAtk + this.pixDec + this.leftover, 
-			this.canvasHeight, 
-			this.pixAtk + this.pixDec + this.leftover + this.pixRel, 
-			this.canvasHeight);
-		this.ctx.stroke();	
-	}
 }  // CanvasADSR class ends
 
 
@@ -214,7 +184,6 @@ let outputADSR1 = new CanvasADSR(ctx,{
 	decay: 10,
 	sustain: 100, 
 	release : 60,
-	adsrEnvelopeType: 'Linear',
 	lineColour: '#000000',
 	pixelWidth: 2,
 	includeAxis: true
@@ -231,8 +200,7 @@ let outputADSR2 = new CanvasADSR(ctx2,{
 	attack: 60, 
 	decay: 30,
 	sustain: 90, 
-	release : 120,
-	adsrEnvelopeType: 'Exponential'
+	release : 120
 });
 
 
@@ -247,7 +215,6 @@ let outputADSR3 = new CanvasADSR(ctx3,{
 	decay: 10,
 	sustain: 100, 
 	release : 60,
-	adsrEnvelopeType: 'Linear',
 	lineColour: '#000000',
 	pixelWidth: 2,
 	includeAxis: true,
@@ -265,7 +232,6 @@ let outputADSR4 = new CanvasADSR(ctx4,{
 	decay: 10,
 	sustain: 100, 
 	release : 60,
-	adsrEnvelopeType: 'Linear',
 	lineColour: 'orange',
 	pixelWidth: 2,
 	includeAxis: false
